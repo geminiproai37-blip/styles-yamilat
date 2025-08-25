@@ -1,4 +1,4 @@
-import { tmdbApiKey } from "../config.js";
+import { tmdbApiKey } from ".../config.js";
 import { initializeLazyLoading } from "./lazyLoader.js";
 import { apiBaseUrl, imageBaseUrl } from "../config.js";
 
@@ -174,3 +174,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initializeApp();
 });
+
