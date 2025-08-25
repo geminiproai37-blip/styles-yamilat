@@ -14,6 +14,3 @@ export const telegramChatId = "YOUR_TELEGRAM_CHAT_ID_HERE";
 // OPCIONAL: ID del Tópico de Telegram si es un grupo (para reportes)
 export const telegramTopicId = "YOUR_TELEGRAM_TOPIC_ID_HERE";
 
-// URLs base para la API de TMDB y las imágenes
-export const apiBaseUrl = "https://api.themoviedb.org/3";
-export const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
