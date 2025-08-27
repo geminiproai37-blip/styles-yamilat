@@ -1,4 +1,4 @@
-import { tmdbApiKey } from "./config.js";
+import { tmdbApiKey } from "https://cdn.jsdelivr.net/gh/geminiproai37-blip/styles-yamilat@main/buscador/config.js";
 
 export async function fetchMediaDetails(
   apiBaseUrl,
@@ -127,3 +127,4 @@ export async function fetchMediaDetails(
     return null;
   }
 }
+
