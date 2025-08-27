@@ -1,5 +1,5 @@
 import { buildCard } from "./dom-builder.js";
-import { fetchMediaDetails } from "./script.js";
+import { fetchMediaDetails } from "https://cdn.jsdelivr.net/gh/geminiproai37-blip/styles-yamilat@main/buscador/script.js";
 
 const contentData = [
   {
@@ -122,3 +122,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     displayResults(filteredMedia);
   });
 });
+
