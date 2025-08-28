@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalles de la Película - Yami Lat</title>
+    <!-- Incluye el CDN de Tailwind CSS para los estilos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluye la biblioteca de iconos de Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- Carga la fuente Inter de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/geminiproai37-blip/styles-yamilat@main/servers/style.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Carga la fuente Material Icons de Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Incluye Plyr.io CSS -->
+    <!-- Incluye ArtPlayer CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.min.css"
+      rel="stylesheet"
+    />
+    <!-- Incluye Plyr.io CSS -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  </head>
+  <body class="bg-gray-900 text-white pt-[76px]">
+    <script>
+      window.serverData = {
+        Latino: {
+          flagCode: "MX",
+          servers: [
+            {
+              name: "Zeus",
+              url: "https://player.zilla-networks.com/play/1b2f7ed5ea2821776a26e90894ff576d",
+              isSandboxed: false,
+            },
+            {
+              name: "Hades",
+              url: "https://pixeldrain.com/api/file/ovMBaUHm",
+              isSandboxed: false,
+            },
+            {
+              name: "Poseidon",
+              url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+              isSandboxed: false,
+            },
+            {
+              name: "Apolo",
+              url: "https://ply.rio/stream/video_id_example.mp4",
+              isSandboxed: false,
+            },
+          ],
+        },
+        Subtitulado: {
+          flagCode: "US",
+          servers: [
+            {
+              name: "Artemisa",
+              url: "https://www.youtube.com/embed/jNQXAC9IVRw",
+              isSandboxed: false,
+            },
+          ],
+        },
+        Castellano: {
+          flagCode: "ES",
+          servers: [
+            {
+              name: "Ares",
+              url: "https://www.youtube.com/embed/kR9_y_M4o1s",
+              isSandboxed: false,
+            },
+          ],
+        },
+      };
+    </script>
+    <script>
+      // Function to get a query parameter from the URL
+      function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      // TMDB ID for the movie/series, extracted from URL or default
+      window.tmdbId = getQueryParam("tmdb_id") || "256721"; // Default to "256721" if not in URL
+      window.seasonNumber = getQueryParam("season_number") || 1; // Default to 1 if not in URL
+      window.episodeNumber = getQueryParam("episode_number") || 1; // Default to 1 if not in URL
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/geminiproai37-blip/styles-yamilat@main/config.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/gh/geminiproai37-blip/styles-yamilat@main/servers/script.js"
+      type="module"
+    ></script>
+    <!-- Incluye ArtPlayer JS -->
+    <script src="https://cdn.jsdelivr.net/npm/artplayer/dist/artplayer.min.js"></script>
+    <!-- Incluye Plyr.io JS -->
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <!-- Carga el script independiente para mejoras del reproductor -->
+    <script src="player_enhancements.js" type="module"></script>
+    <header
+      class="fixed top-0 left-0 w-full bg-gray-800 text-white p-4 z-10 shadow-md"
+    >
+      <div class="container mx-auto flex items-center justify-between">
+        <a href="#" id="back-button-header" class="text-white text-2xl mr-4">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 id="header-anime-title" class="text-xl font-bold flex-grow">
+          Cargando...
+        </h1>
+        <div class="flex space-x-4">
+          <button
+            id="cast-btn-global"
+            class="text-white text-2xl"
+            onclick="openStreamInNewTab()"
+          >
+            <i class="fas fa-play"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto p-4">
+      <section id="video-player-section" class="mb-6">
+        <div
+          id="video-player-container"
+          class="relative w-full h-[250px] md:h-[500px] bg-black rounded-lg overflow-hidden"
+        >
+          <!-- El reproductor de video se cargará aquí -->
+        </div>
+      </section>
+
+      <section id="movie-details-container" class="bg-gray-800 p-4 rounded-lg">
+        <h2 id="episode-name" class="text-xl font-bold mb-2">
+          Nombre de Episodio: Cargando...
+        </h2>
+        <p id="episode-number" class="text-gray-400 mb-4">
+          Número de Episodio: Cargando...
+        </p>
+        <p id="episode-overview" class="text-gray-300 mb-4">
+          Sinopsis: Cargando...
+        </p>
+
+        <div id="action-buttons" class="flex space-x-2 mb-4">
+          <button
+            id="share-btn-global"
+            class="flex-1 bg-gray-700 text-white py-3 px-4 rounded-md hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2"
+          >
+            <i class="fas fa-share-alt"></i>
+            <span>Compartir</span>
+          </button>
+          <button
+            id="download-btn"
+            class="flex-1 bg-gray-700 text-white py-3 px-4 rounded-md hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2"
+          >
+            <i class="fas fa-download"></i>
+            <span>Descargar</span>
+          </button>
+          <button
+            id="download-servers-btn"
+            class="flex-1 bg-gray-700 text-white py-3 px-4 rounded-md hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2"
+            onclick="openDownloadServersModal()"
+          >
+            <i class="fas fa-cloud-download-alt"></i>
+            <span>Descargar</span>
+          </button>
+        </div>
+
+        <div
+          id="language-tabs-nav"
+          class="flex overflow-x-auto border-b border-gray-700 mb-4"
+        >
+          <!-- Language tabs will be rendered here by JavaScript -->
+        </div>
+
+        <div id="server-buttons-container" class="grid grid-cols-2 gap-2">
+          <!-- Server buttons will be rendered here by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Message Modal -->
+      <div
+        id="message-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden"
+      >
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full">
+          <h3 id="message-title" class="text-xl font-bold mb-4 text-white">
+            Título del Mensaje
+          </h3>
+          <p id="message-text" class="text-gray-300 mb-6">
+            Este es un mensaje de ejemplo.
+          </p>
+          <button
+            id="close-message-btn"
+            class="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors w-full"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+
+      <!-- Download Servers Modal -->
+      <div
+        id="download-servers-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden"
+      >
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full">
+          <h3 class="text-xl font-bold mb-4 text-white">
+            Servidores de Descarga
+          </h3>
+          <div id="download-servers-container" class="space-y-3 mb-6">
+            <!-- Download server links will be injected here -->
+          </div>
+          <button
+            id="close-download-servers-modal-btn"
+            class="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors w-full"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 p-4 text-center mt-8">
+      <div class="container mx-auto">
+        <p>&copy; 2024 Yami Lat. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </body>
+</html>
