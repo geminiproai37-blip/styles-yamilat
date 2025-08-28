@@ -1,0 +1,428 @@
+sbody {
+  font-family: "Inter", sans-serif;
+}
+/* Estilos para la barra de desplazamiento */
+.slider-container::-webkit-scrollbar {
+  display: none; /* For Webkit browsers */
+}
+.slider-container {
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+/* Estilo para el slider principal (Hero) */
+#hero-slider-section {
+  position: relative;
+  width: 100%;
+  height: 60vh; /* Made smaller */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem; /* Added space below the main slider */
+}
+
+.hero-slider-item {
+  scroll-snap-align: start;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover; /* Ensure background image covers the area */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Do not repeat the background image */
+}
+
+.hero-slider-container {
+  scroll-snap-type: x mandatory;
+  overflow-x: auto; /* Changed to auto to allow manual scrolling */
+  width: 100%;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hero-slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slider-dots {
+  position: absolute;
+  bottom: 20px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+
+.hero-slider-dot {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-slider-dot.active {
+  background-color: #f97316; /* orange-500 */
+}
+
+.hero-background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Changed to cover to fill the space */
+  object-position: center; /* Center the content of the image */
+  background-color: black; /* Added black background */
+  z-index: 0;
+}
+
+.hero-slider-item .gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.7) 20%,
+    rgba(0, 0, 0, 0.5) 40%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.hero-content-container {
+  position: absolute;
+  bottom: 10%; /* Further increased space from the bottom for smaller screens */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for true centering */
+  z-index: 2;
+  max-width: 90%; /* Allow more width for content on smaller screens */
+  padding: 0 0.5rem; /* Add some padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text */
+}
+
+@media (min-width: 768px) {
+  /* For medium screens and up */
+  .hero-content-container {
+    bottom: 12%; /* Further increased space from the bottom for medium screens */
+    left: 50%; /* Keep centered */
+    transform: translateX(-50%); /* Keep centered */
+    max-width: 70%; /* Wider on medium screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  /* For large screens and up */
+  .hero-content-container {
+    max-width: 60%; /* Even wider on large screens */
+  }
+}
+
+.hero-content-container .text-lg {
+  /* Target the series text */
+  font-size: 0.875rem; /* Smaller font size */
+  margin-bottom: 0.5rem; /* Smaller margin */
+}
+
+.hero-content-container .text-6xl {
+  /* Target the title fallback */
+  font-size: 2.5rem; /* Smaller font size */
+}
+
+.hero-title-logo {
+  height: 60px; /* Smaller height for better adaptation */
+  object-fit: contain;
+  /* Explicitly setting absolute positioning for the logo */
+  position: absolute;
+  top: 6px;
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for true centering */
+  width: 50%; /* w-1/2 from Tailwind */
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.05))
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.05)); /* drop-shadow-lg from Tailwind */
+}
+
+@media (min-width: 768px) {
+  .hero-title-logo {
+    height: 90px; /* Adjusted for medium screens */
+  }
+}
+
+.hero-metadata {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem; /* Smaller margin */
+  margin-bottom: 1rem; /* Smaller margin */
+  font-size: 0.875rem; /* Smaller font size for metadata */
+}
+
+.hero-metadata span {
+  margin-right: 0.4rem; /* Smaller margin */
+  color: #d1d5db; /* gray-300 */
+  font-weight: 600;
+}
+
+.hero-metadata .dot {
+  width: 3px; /* Smaller dot */
+  height: 3px; /* Smaller dot */
+  background-color: #f97316; /* orange-500 */
+  border-radius: 50%;
+  margin-right: 0.4rem; /* Smaller margin */
+}
+
+.hero-content-container .line-clamp-3 {
+  /* Target description */
+  font-size: 0.875rem; /* Smaller font size */
+  margin-top: 0.5rem; /* Smaller margin */
+  margin-bottom: 1rem; /* Smaller margin */
+}
+
+.hero-buttons-container {
+  display: flex;
+  gap: 0.75rem; /* Smaller gap */
+  margin-top: 1rem; /* Smaller margin */
+  align-items: center;
+  justify-content: center; /* Center buttons horizontally */
+  width: 100%; /* Ensure it takes full width to center */
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.2rem; /* Smaller padding */
+  border-radius: 9999px; /* full rounded */
+  font-weight: 700;
+  transition: all 0.3s ease;
+  text-decoration: none; /* Remove underline from links */
+  font-size: 0.875rem; /* Smaller font size for buttons */
+}
+
+.hero-button.play {
+  background-color: white;
+  color: black;
+  padding: 0.4rem 0.6rem; /* Smaller padding */
+  border-radius: 0.5rem; /* Rounded corners */
+  font-size: 0.75rem; /* Smaller font size */
+}
+
+.hero-button.play:hover {
+  background-color: #d1d5db; /* gray-300 */
+}
+
+.hero-button.secondary-icon {
+  background-color: transparent; /* No background */
+  border: none; /* Removed border */
+  color: white;
+  width: 48px; /* Smaller fixed width for circular buttons */
+  height: 48px; /* Smaller fixed height for circular buttons */
+  border-radius: 50%; /* Make it circular */
+  flex-direction: column; /* Stack icon and text */
+  font-size: 0.6rem; /* Smaller font for text */
+  padding: 0; /* Remove padding */
+}
+
+.hero-button.secondary-icon i {
+  font-size: 1rem; /* Smaller icon size */
+}
+
+.hero-button.secondary-icon:hover {
+  background-color: rgba(107, 114, 128, 0.2); /* Slight background on hover */
+}
+
+.hero-button.secondary-icon i {
+  margin-bottom: 0.25rem; /* Space between icon and text */
+}
+/* Custom styles for content cards */
+.poster-card {
+  width: 100%; /* Make it take full width of its grid column */
+  aspect-ratio: 2 / 3; /* Common poster aspect ratio */
+}
+
+.poster-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Add transition for smooth effects */
+}
+
+.poster-card:hover {
+  transform: translateY(-5px) scale(1.03); /* Lift and slightly enlarge on hover */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* Add a stronger shadow on hover */
+}
+
+.poster-card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.episode-card {
+  width: 120px; /* Smaller fixed width for 16:9 episode card */
+  aspect-ratio: 16 / 9;
+}
+
+.episode-card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.rank-overlay {
+  /* Position is now handled by Tailwind classes in script.js: absolute top-2 left-2 */
+  background-color: #f97316; /* Orange background */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 0.3rem 0.7rem; /* Adjusted padding */
+  font-size: 2.2rem; /* Significantly increased font size */
+  font-weight: bold;
+  font-family: "Inter", sans-serif; /* Specific font family */
+  border-radius: 0.25rem; /* Rounded square borders */
+  z-index: 10;
+  text-align: center;
+  /* Using multiple text-shadows to simulate a text stroke */
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  line-height: 1; /* Adjust line height to center text vertically */
+  z-index: 40; /* Ensure it's above most content but below a potential fixed navbar */
+}
+
+/* Notification container styles */
+#notification-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1000; /* Ensure notifications are on top of everything */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align notifications to the right */
+  max-width: 90%; /* Limit width on smaller screens */
+}
+
+.notification {
+  min-width: 250px; /* Minimum width for notifications */
+  text-align: center;
+}
+
+/* Specific adjustments for header and navbar on small screens */
+@media (max-width: 640px) {
+  header {
+    padding-top: 1.2rem; /* Further increased padding for taller header */
+    padding-bottom: 1.2rem; /* Further increased padding for taller header */
+    padding-left: 1.5rem; /* Increased padding for wider header */
+    padding-right: 1.5rem; /* Increased padding for wider header */
+  }
+  header .h-8 {
+    /* SVG icon */
+    height: 2.2rem; /* Further increased icon size */
+    width: 2.2rem; /* Further increased icon size */
+  }
+  header .text-2xl {
+    /* YamiLat title */
+    font-size: 1.5rem; /* Further increased title font size */
+  }
+  header .text-xl {
+    /* Bell, Share, Search icons */
+    font-size: 1.4rem; /* Further increased icon font size */
+  }
+  nav {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+  nav .text-xl {
+    /* Bottom nav icons */
+    font-size: 0.9rem;
+  }
+  nav .text-xs {
+    /* Bottom nav text */
+    font-size: 0.65rem;
+  }
+}
+
+#series-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(100px, 1fr)
+  ); /* Use auto-fit and minmax for better responsiveness */
+  gap: 2.5rem; /* Significantly increased gap */
+  justify-items: center; /* Center items in the grid */
+}
+
+@media (max-width: 640px) {
+  /* Adjust grid for very small screens */
+  #series-grid {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(65px, 1fr)
+    ); /* Even smaller min width for small screens */
+    gap: 1.5rem; /* Adjusted gap for small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Added media query for very small screens */
+  #series-grid {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(60px, 1fr)
+    ); /* Smallest min width for very small screens */
+    gap: 1rem; /* Smallest gap for very small screens */
+  }
+}
+
+/* Estilos para los botones de filtro */
+.filter-button {
+  @apply bg-gray-700 text-gray-200 px-3 py-1 rounded-full text-sm hover:bg-orange-600 transition-colors duration-200 cursor-pointer;
+}
+
+.filter-button.active {
+  @apply bg-orange-500 text-white;
+}
+
+/* Keyframe for a simple pulse animation */
+@keyframes pulse-slow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s infinite ease-in-out;
+}
+
+/* Keyframe for a bounce-once animation */
+@keyframes bounce-once {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-10px);
+  }
+  40% {
+    transform: translateY(0);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+  80% {
+    transform: translateY(0);
+  }
+}
+
+.animate-bounce-once {
+  animation: bounce-once 1s ease-out;
+}
