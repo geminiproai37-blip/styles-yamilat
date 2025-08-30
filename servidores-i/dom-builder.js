@@ -11,7 +11,7 @@ import {
 } from "./external-player-intents.js";
 import { showReportIssueModal } from "./report-issue.js";
 
-export function buildHeader() {
+export function buildHeader(mediaId) {
   const header = document.createElement("header");
   header.className =
     "bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 py-3 px-4 flex justify-between items-center border-b border-gray-800 max-w-4xl mx-auto";
@@ -51,7 +51,7 @@ export function buildHeader() {
     window.location.href = "go:buscar";
   });
   header.querySelector("#back-btn").addEventListener("click", () => {
-    window.location.href = "go:home";
+    window.location.href = `go:${mediaId}`;
   });
 
   return header;
@@ -458,11 +458,9 @@ export async function buildMovieDetailPage(
     allEpisodesButton.innerHTML = `<i class="fas fa-list-ul mr-2"></i> Todos los Episodios`;
     buttonsContainer.appendChild(allEpisodesButton);
 
-    if (allEpisodesUrl) {
-      allEpisodesButton.addEventListener("click", () => {
-        window.location.href = allEpisodesUrl;
-      });
-    }
+    allEpisodesButton.addEventListener("click", () => {
+      window.location.href = `go:${mediaId}`;
+    });
 
     // Next Episode Button
     const nextEpisodeButton = document.createElement("button");

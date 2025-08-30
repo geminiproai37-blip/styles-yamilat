@@ -13,10 +13,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const backdropBaseUrl = "https://image.tmdb.org/t/p/w780";
 
   const appRoot = document.getElementById("app-root");
-  appRoot.appendChild(buildHeader());
-  appRoot.appendChild(buildMainContent());
-
-  const movieDetailSection = document.getElementById("movie-detail-section");
 
   // Get media data from local-media-data div
   const localMediaDataElement = document.getElementById("local-media-data");
@@ -33,6 +29,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const previousEpisodeUrl = localMediaDataElement.dataset.previousEpisodeUrl;
   const hasPreviousEpisode =
     localMediaDataElement.dataset.hasPreviousEpisode === "true";
+
+  appRoot.appendChild(buildHeader(mediaId)); // Pass mediaId to buildHeader
+  appRoot.appendChild(buildMainContent());
+
+  const movieDetailSection = document.getElementById("movie-detail-section");
 
   // Get server data from local-servers-db script tag
   const localServersDbScript = document.getElementById("local-servers-db");
