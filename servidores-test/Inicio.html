@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yami Lat - Tu Guía de Anime</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"
+    />
+    <!-- Plyr CSS -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <!-- Fluid Player CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.css"
+      type="text/css"
+    />
+  </head>
+  <body class="bg-gray-900 text-white">
+    <!-- Facebook SDK for Comments Plugin -->
+    <div id="fb-root"></div>
+    <script type="module">
+      import { fbAppId } from "./config.js";
+      const fbSdkScript = document.createElement("script");
+      fbSdkScript.async = true;
+      fbSdkScript.defer = true;
+      fbSdkScript.crossOrigin = "anonymous";
+      fbSdkScript.src = `https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v18.0&appId=${fbAppId}`;
+      fbSdkScript.nonce = "YOUR_NONCE"; // Consider generating a dynamic nonce for production
+      document.head.appendChild(fbSdkScript);
+    </script>
+
+    <!-- Base de datos local para el contenido por defecto -->
+    <div
+      id="local-media-data"
+      data-media-type="tv"
+      data-series-id="93405"
+      data-season-number="1"
+      data-episode-number="1"
+      data-all-episodes-url="go:all-episodes-93405"
+      data-next-episode-url="go:next-episode-93405-1-2"
+      data-previous-episode-url="go:previous-episode-93405-1-0"
+      data-has-previous-episode="true"
+      class="hidden"
+    ></div>
+
+    <div id="app-root"></div>
+    <div id="notification-container" class="fixed bottom-4 right-4 z-50"></div>
+
+    <!-- Base de datos local de servidores -->
+    <script id="local-servers-db" type="application/json">
+      {
+        "Latino": {
+          "flagCode": "mx",
+          "servers": [
+            {
+              "name": "Server 1",
+              "url": "https://gamelink.b-cdn.net/peliafmkngklanskgnaslkngaksnlfklatinosdasf/fhjfkfhfhjfhjfjfhjfhfgdgdhganihjghjgjghjghfdhdjhdi/2067_1_SUB.mp4",
+              "blockAds": false
+            },
+            {
+              "name": "Server 2",
+              "url": "https://dn721902.ca.archive.org/0/items/your-name-hd-599-79-mb/Your%20Name%20HD%20599%2C79%20MB.mp4",
+              "blockAds": true
+            },
+            {
+              "name": "Proiamakitecth",
+              "url": "https://pro.iamakintech.com/AgAD-g14532",
+              "blockAds": false
+            }
+          ]
+        },
+        "Castellano": {
+          "flagCode": "es",
+          "servers": [
+            {
+              "name": "Server A",
+              "url": "https://supervideo.cc/embed-5t0qhx1te0uh.html",
+              "blockAds": true
+            },
+            {
+              "name": "Server B",
+              "url": "https://www.bing.com/",
+              "blockAds": false
+            }
+          ]
+        },
+        "English": {
+          "flagCode": "us",
+          "servers": [
+            {
+              "name": "English Server 1",
+              "url": "https://example.com",
+              "blockAds": false
+            }
+          ]
+        }
+      }
+    </script>
+
+    <!-- Base de datos local de servidores de descarga -->
+    <script id="local-download-servers-db" type="application/json">
+      {
+        "Latino": {
+          "servers": [
+            {
+              "name": "Descarga Server 1",
+              "url": "https://example.com/download1.mp4"
+            },
+            {
+              "name": "Descarga Server 2",
+              "url": "https://example.com/download2.mp4"
+            }
+          ]
+        },
+        "Castellano": {
+          "servers": [
+            {
+              "name": "Descarga Server A",
+              "url": "https://example.com/downloadA.mp4"
+            },
+            {
+              "name": "Descarga Server B",
+              "url": "https://example.com/downloadB.mp4"
+            }
+          ]
+        }
+      }
+    </script>
+
+    <script type="module" src="main.js"></script>
+    <script src="lazy-loader.js"></script>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="web-video-caster.js"></script>
+    <script type="module" src="dom-builder.js"></script>
+    <script type="module" src="download-modal.js"></script>
+    <script type="module" src="external-player-intents.js"></script>
+    <script type="module" src="report-issue.js"></script>
+    <!-- Plyr JS -->
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <!-- Fluid Player JS -->
+    <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+  </body>
+</html>
