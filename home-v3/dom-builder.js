@@ -24,6 +24,9 @@ export function buildHeader() {
       </h1>
     </div>
     <div class="flex items-center space-x-4">
+      <button id="coin-btn" aria-label="Anuncios" class="text-green-500 hover:text-white transition flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700">
+        <i class="fas fa-ad text-lg md:text-xl"></i>
+      </button>
       <button id="notification-btn" aria-label="Notificaciones" class="text-gray-400 hover:text-white transition">
         <i class="fas fa-bell text-lg md:text-xl"></i>
       </button>
@@ -39,6 +42,9 @@ export function buildHeader() {
   // Acciones (puedes reemplazar con funciones reales en vez de redirección)
   header.querySelector("#notification-btn").addEventListener("click", () => {
     window.location.href = "http://action_notifications";
+  });
+  header.querySelector("#coin-btn").addEventListener("click", () => {
+    window.location.href = "http://action_coins"; // Placeholder URL
   });
   header.querySelector("#share-btn").addEventListener("click", () => {
     window.location.href = "http://action_share";
