@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Series Sesion Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      const seriesData = [];
+    </script>
+    <script src="generator.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #0f172a; /* slate-900 */
+      }
+      .form-input {
+        background-color: #1e293b; /* slate-800 */
+        border-color: #334155; /* slate-700 */
+      }
+      .btn-primary {
+        background-color: #f97316; /* orange-500 */
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #ea580c; /* orange-600 */
+      }
+      .btn-secondary {
+        background-color: #f97316; /* orange-500 */
+        color: white;
+      }
+      .btn-secondary:hover {
+        background-color: #ea580c; /* orange-600 */
+      }
+      .card {
+        background-color: #1e293b; /* slate-800 */
+        border-color: #334155; /* slate-700 */
+      }
+      .title {
+        color: #f97316; /* orange-500 */
+      }
+    </style>
+  </head>
+  <body class="text-slate-200 font-sans min-h-screen flex flex-col">
+    <header class="bg-slate-800 shadow-md w-full">
+      <div class="px-6 py-2 flex items-center">
+        <a
+          href="../../../index.html"
+          class="text-xl text-slate-400 mr-3"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <i class="fas fa-video text-xl text-orange-500 mr-2"></i>
+        <div class="text-center">
+          <h1 class="text-xl font-bold">
+            Yami<span class="text-orange-500">Lat</span>
+          </h1>
+          <p class="text-xs text-slate-400 font-bold -mt-1">
+            Series Sesion Generator
+          </p>
+        </div>
+        <div class="ml-auto flex items-center space-x-3">
+          <button
+            id="load-html-btn"
+            class="px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm btn-secondary"
+          >
+            <i class="fas fa-upload mr-2"></i>Cargar HTML
+          </button>
+        </div>
+      </div>
+    </header>
+    <div class="container mx-auto p-6 flex-grow flex flex-col">
+      <form id="generator-form" class="space-y-5 flex flex-col flex-grow">
+        <div class="grid grid-cols-1 gap-6 flex-grow">
+          <!-- Columna Principal para la lista de elementos -->
+          <div class="space-y-5 flex flex-col flex-grow">
+            <div class="flex justify-end items-center mb-4 space-x-2">
+              <button
+                type="button"
+                id="generate-html-btn"
+                class="px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm btn-secondary"
+              >
+                <i class="fas fa-code mr-2"></i>Generar HTML
+              </button>
+              <button
+                type="button"
+                id="open-add-item-modal-btn"
+                class="px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm bg-green-600 hover:bg-green-700 text-white"
+              >
+                <i class="fas fa-plus mr-2"></i>Agregar Nuevo
+              </button>
+              <button
+                type="button"
+                id="clear-database-btn"
+                class="px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm bg-red-600 hover:bg-red-700 text-white"
+              >
+                <i class="fas fa-trash-alt mr-2"></i>Limpiar Base
+              </button>
+            </div>
+            <div
+              id="media-list-scroll-container"
+              class="bg-slate-800 p-4 rounded-md shadow-inner flex-grow overflow-y-auto custom-scrollbar h-full"
+            >
+              <h3
+                id="section-title-display"
+                class="text-xl font-bold text-orange-500 mb-4 border-b border-slate-700 pb-2 text-center"
+              >
+                Series de Anime
+              </h3>
+              <div class="mb-4">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="Buscar series por título..."
+                  class="w-full form-input rounded-md shadow-sm text-sm p-2"
+                />
+              </div>
+              <div id="media-list-container">
+                <!-- Los elementos de la lista se renderizarán aquí -->
+              </div>
+            </div>
+            <div
+              id="media-list-scroll-container"
+        <hr class="my-6 border-slate-700" />
+      </form>
+
+      <!-- Modal para Cargar HTML -->
+      <div
+        id="load-html-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4"
+      >
+        <div
+          class="bg-slate-800 p-6 rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] flex flex-col"
+        >
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold title">Cargar HTML</h2>
+            <button
+              id="close-load-html-modal"
+              class="text-slate-400 hover:text-slate-200 text-2xl"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <textarea
+            id="input-html-to-load"
+            rows="15"
+            class="w-full form-input rounded-md shadow-sm text-sm p-1.5 flex-grow resize-none"
+            placeholder="Pega aquí el HTML generado para cargarlo..."
+          ></textarea>
+          <button
+            id="load-html-into-generator"
+            class="mt-4 inline-flex justify-center py-2.5 px-4 border border-transparent shadow-sm text-base font-medium rounded-md btn-primary"
+          >
+            <i class="fas fa-upload mr-2"></i>Cargar en el Generador
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal de Confirmación de Eliminación -->
+      <div
+        id="confirmation-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4"
+      >
+        <div class="bg-slate-800 p-6 rounded-lg shadow-xl max-w-sm w-full">
+          <h2 class="text-xl font-bold title mb-4">Confirmar Eliminación</h2>
+          <p id="confirmation-message" class="text-slate-300 mb-6">
+            ¿Estás seguro de que quieres eliminar este elemento? Esta acción no
+            se puede deshacer.
+          </p>
+          <div class="flex justify-end space-x-4">
+            <button
+              id="cancel-delete"
+              class="px-4 py-2 border border-slate-700 rounded-md text-slate-300 hover:bg-slate-700"
+            >
+              Cancelar
+            </button>
+            <button
+              id="confirm-delete"
+              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal de Confirmación para Limpiar Base de Datos -->
+      <div
+        id="clear-db-confirmation-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4"
+      >
+        <div class="bg-slate-800 p-6 rounded-lg shadow-xl max-w-sm w-full">
+          <h2 class="text-xl font-bold title mb-4">
+            Confirmar Limpieza de Base de Datos
+          </h2>
+          <p id="clear-db-confirmation-message" class="text-slate-300 mb-6">
+            ¿Estás seguro de que quieres eliminar TODOS los elementos de la base
+            de datos? Esta acción no se puede deshacer.
+          </p>
+          <div class="flex justify-end space-x-4">
+            <button
+              id="cancel-clear-db"
+              class="px-4 py-2 border border-slate-700 rounded-md text-slate-300 hover:bg-slate-700"
+            >
+              Cancelar
+            </button>
+            <button
+              id="confirm-clear-db"
+              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+            >
+              Limpiar Todo
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal para mostrar el HTML generado -->
+      <div
+        id="html-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4"
+      >
+        <div
+          class="bg-slate-800 p-6 rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] flex flex-col"
+        >
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold title">HTML Generado</h2>
+            <button
+              id="close-modal"
+              class="text-slate-400 hover:text-slate-200 text-2xl"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <textarea
+            id="output-html"
+            rows="15"
+            class="w-full form-input rounded-md shadow-sm text-sm p-1.5 flex-grow resize-none"
+            readonly
+          ></textarea>
+          <button
+            id="copy-html"
+            class="mt-4 inline-flex justify-center py-2.5 px-4 border border-transparent shadow-sm text-base font-medium rounded-md btn-primary"
+          >
+            <i class="fas fa-copy mr-2"></i>Copiar
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal de Confirmación de Copia -->
+      <div
+        id="copy-confirmation-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4"
+      >
+        <div class="bg-slate-800 p-6 rounded-lg shadow-xl max-w-sm w-full">
+          <h2 class="text-xl font-bold title mb-4">Copiado Exitoso</h2>
+          <p class="text-slate-300 mb-6">
+            El HTML generado se ha copiado al portapapeles.
+          </p>
+          <div class="flex justify-end">
+            <button
+              id="close-copy-confirmation-modal"
+              class="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal de Éxito al Limpiar Base de Datos -->
+      <div
+        id="clear-success-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4"
+      >
+        <div class="bg-slate-800 p-6 rounded-lg shadow-xl max-w-sm w-full">
+          <h2 class="text-xl font-bold title mb-4">Base de Datos Limpiada</h2>
+          <p class="text-slate-300 mb-6">
+            Todos los elementos han sido eliminados de la base de datos.
+          </p>
+          <div class="flex justify-end">
+            <button
+              id="close-clear-success-modal"
+              class="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal para Agregar Nuevo Elemento -->
+      <div
+        id="add-item-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4"
+      >
+        <div class="bg-slate-800 p-6 rounded-lg shadow-xl max-w-sm w-full">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold title">Agregar Nuevo Elemento</h2>
+            <button
+              id="close-add-item-modal"
+              class="text-slate-400 hover:text-slate-200 text-2xl"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label for="modal-series-id" class="block text-sm font-medium"
+                >ID de Contenido</label
+              >
+              <div class="flex items-center mt-1">
+                <input
+                  type="text"
+                  id="modal-series-id"
+                  class="block w-full form-input rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm p-1.5 mr-2"
+                />
+                <button
+                  type="button"
+                  id="open-tmdb-btn"
+                  class="px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap"
+                >
+                  <i class="fas fa-external-link-alt mr-1"></i>Abrir TMDB
+                </button>
+              </div>
+            </div>
+            <button
+              type="button"
+              id="confirm-add-item-btn"
+              class="w-full inline-flex justify-center py-2.5 px-4 border border-transparent shadow-sm text-base font-medium rounded-md bg-green-600 hover:bg-green-700 text-white mt-3"
+            >
+              <i class="fas fa-plus mr-2"></i>Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal para Editar Elemento -->
+      <div
+        id="edit-item-modal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden p-4"
+      >
+        <div class="bg-slate-800 p-6 rounded-lg shadow-xl max-w-sm w-full">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold title">Editar Elemento</h2>
+            <button
+              id="close-edit-item-modal"
+              class="text-slate-400 hover:text-slate-200 text-2xl"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label
+                for="edit-modal-series-id"
+                class="block text-sm font-medium"
+                >ID de Contenido</label
+              >
+              <div class="flex items-center mt-1">
+                <input
+                  type="text"
+                  id="edit-modal-series-id"
+                  class="block w-full form-input rounded-md shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm p-1.5 mr-2"
+                />
+                <button
+                  type="button"
+                  id="edit-open-tmdb-btn"
+                  class="px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap"
+                >
+                  <i class="fas fa-external-link-alt mr-1"></i>Abrir TMDB
+                </button>
+              </div>
+            </div>
+            <button
+              type="button"
+              id="confirm-edit-item-btn"
+              class="w-full inline-flex justify-center py-2.5 px-4 border border-transparent shadow-sm text-base font-medium rounded-md bg-orange-600 hover:bg-orange-700 text-white mt-3"
+            >
+              <i class="fas fa-save mr-2"></i>Guardar Cambios
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

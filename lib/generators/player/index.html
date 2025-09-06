@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generador de Reproductor de Video</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-gray-900 text-gray-100 font-inter">
+    <!-- Header -->
+    <header class="bg-gray-800/50 backdrop-blur-sm shadow-lg sticky top-0 z-50">
+      <div class="px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <a
+            href="../../../index.html"
+            class="mr-4 p-2 rounded-md text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-150 ease-in-out"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8 text-orange-500"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M4.5 4.5a3 3 0 00-3 3v9a3 3 0 003 3h8.25a3 3 0 003-3v-9a3 3 0 00-3-3H4.5zM19.94 18.75l-2.69-2.69V7.94l2.69-2.69c.944-.945 2.56-.276 2.56 1.06v11.38c0 1.336-1.616 2.005-2.56 1.06z"
+            />
+          </svg>
+          <div class="logo text-center">
+            <h1 class="text-xl font-bold">
+              <span class="text-white">yami</span
+              ><span class="text-orange-500">Lat</span>
+            </h1>
+            <p class="text-sm">Player Generator</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            id="open-load-modal-btn"
+            class="px-4 py-2 rounded-md text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-150 ease-in-out"
+          >
+            Cargar HTML
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <!-- TMDB Info Column -->
+        <div id="tmdb-info" class="lg:w-1/4 space-y-4">
+          <h2 class="text-xl font-bold text-white mb-3">Información de TMDB</h2>
+          <div class="space-y-2">
+            <label class="block text-sm font-medium">Tipo de Contenido</label>
+            <div class="flex gap-2">
+              <button
+                type="button"
+                id="type-tv-btn"
+                class="flex-1 py-2 px-4 rounded-md text-sm font-medium bg-orange-600 text-white"
+              >
+                Serie
+              </button>
+              <button
+                type="button"
+                id="type-movie-btn"
+                class="flex-1 py-2 px-4 rounded-md text-sm font-medium bg-gray-700 hover:bg-gray-600 text-gray-300"
+              >
+                Película
+              </button>
+            </div>
+            <input type="hidden" id="type" value="tv" />
+          </div>
+          <div>
+            <label for="tmdbId" class="block text-sm font-medium mb-1"
+              >ID de TMDb</label
+            >
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                id="tmdbId"
+                value="256721"
+                class="w-full p-2 rounded form-input"
+                placeholder="Ej: 256721"
+              />
+              <a
+                id="tmdb-link"
+                href="https://www.themoviedb.org/"
+                target="_blank"
+                class="p-2 rounded-md bg-orange-600 hover:bg-orange-700 text-white"
+                aria-label="Abrir en The Movie Database"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
+                  />
+                  <path
+                    d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div id="tmdb-content" class="text-center">
+            <p class="text-gray-400">Cargando datos...</p>
+          </div>
+        </div>
+
+        <!-- Generator Form Column -->
+        <div class="lg:w-3/4">
+          <form id="generator-form">
+            <div class="flex flex-wrap -mx-3">
+              <!-- Column 1 -->
+              <div
+                class="w-full lg:w-1/2 px-3 space-y-4"
+                id="content-config-section"
+              >
+                <!-- 1. Configuración de Contenido -->
+                <div>
+                  <h3
+                    class="text-lg font-semibold mb-3 border-b border-gray-700 pb-2"
+                  >
+                    Configuración de Contenido
+                  </h3>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div
+                      id="tv-fields"
+                      class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6"
+                    >
+                      <div>
+                        <label
+                          for="season"
+                          class="block text-sm font-medium mb-1"
+                          >Temporada</label
+                        >
+                        <input
+                          type="number"
+                          id="season"
+                          value="1"
+                          class="w-full p-2 rounded form-input"
+                          placeholder="Ej: 1"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="episode"
+                          class="block text-sm font-medium mb-1"
+                          >Episodio</label
+                        >
+                        <input
+                          type="number"
+                          id="episode"
+                          value="1"
+                          class="w-full p-2 rounded form-input"
+                          placeholder="Ej: 1"
+                        />
+                      </div>
+                      <div
+                        class="md:col-span-2 p-4 rounded-md border border-orange-500 space-y-4"
+                      >
+                        <label for="malIdTv" class="font-medium text-white"
+                          >ID de MyAnimeList (para AniSkip en Series)</label
+                        >
+                        <div id="aniskip-fields-tv">
+                          <div class="flex items-center gap-2">
+                            <input
+                              type="number"
+                              id="malIdTv"
+                              class="w-full p-2 rounded form-input"
+                              placeholder="Obligatorio: Ej: 5114"
+                            />
+                            <a
+                              id="mal-link-tv"
+                              href="https://myanimelist.net/"
+                              target="_blank"
+                              class="p-2 rounded-md bg-orange-600 hover:bg-orange-700 text-white"
+                              aria-label="Abrir en MyAnimeList"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path
+                                  d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
+                                />
+                                <path
+                                  d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
+                                />
+                              </svg>
+                            </a>
+                          </div>
+                          <p class="text-xs text-gray-400 mt-1">
+                            El número de episodio se tomará del campo "Episodio"
+                            de arriba.
+                          </p>
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          for="nextChapterUrl"
+                          class="block text-sm font-medium mb-1"
+                          >URL Siguiente Capítulo</label
+                        >
+                        <input
+                          type="url"
+                          id="nextChapterUrl"
+                          value="go:"
+                          class="w-full p-2 rounded form-input"
+                          placeholder="https://..."
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="prevChapterUrl"
+                          class="block text-sm font-medium mb-1"
+                          >URL Capítulo Anterior</label
+                        >
+                        <input
+                          type="url"
+                          id="prevChapterUrl"
+                          value="go:"
+                          class="w-full p-2 rounded form-input"
+                          placeholder="https://..."
+                        />
+                      </div>
+                      <div class="flex items-center gap-2 md:col-span-2">
+                        <input
+                          type="checkbox"
+                          id="showPrevChapterButton"
+                          class="h-4 w-4 rounded text-orange-600 focus:ring-orange-500"
+                        />
+                        <label
+                          for="showPrevChapterButton"
+                          class="text-sm font-medium"
+                          >Mostrar botón de capítulo anterior</label
+                        >
+                      </div>
+                      <!-- Hidden fields for content config values not directly editable -->
+                      <input type="hidden" id="chapterNameHidden" />
+                      <input type="hidden" id="seriesNameHidden" />
+                      <input type="hidden" id="introStartTimeHidden" />
+                      <input type="hidden" id="introEndTimeHidden" />
+                      <input type="hidden" id="endingStartTimeHidden" />
+                    </div>
+
+                    <!-- AniSkip Manual Input Section -->
+                    <div
+                      class="md:col-span-2 p-4 rounded-md border border-gray-700 space-y-4"
+                    >
+                      <div class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          id="enableManualAniSkip"
+                          class="h-4 w-4 rounded text-orange-600 focus:ring-orange-500"
+                        />
+                        <label
+                          for="enableManualAniSkip"
+                          class="text-sm font-medium"
+                          >Habilitar entrada manual de tiempos AniSkip
+                          (minutos)</label
+                        >
+                      </div>
+                      <div
+                        id="manual-aniskip-fields"
+                        class="grid grid-cols-1 md:grid-cols-3 gap-4"
+                        style="display: none"
+                      >
+                        <div>
+                          <label
+                            for="manualIntroStartTime"
+                            class="block text-sm font-medium mb-1"
+                            >Intro Inicio (min)</label
+                          >
+                          <input
+                            type="number"
+                            id="manualIntroStartTime"
+                            class="w-full p-2 rounded form-input"
+                            placeholder="Ej: 1.5"
+                            step="0.1"
+                          />
+                        </div>
+                        <div>
+                          <label
+                            for="manualIntroEndTime"
+                            class="block text-sm font-medium mb-1"
+                            >Intro Fin (min)</label
+                          >
+                          <input
+                            type="number"
+                            id="manualIntroEndTime"
+                            class="w-full p-2 rounded form-input"
+                            placeholder="Ej: 2.5"
+                            step="0.1"
+                          />
+                        </div>
+                        <div>
+                          <label
+                            for="manualEndingStartTime"
+                            class="block text-sm font-medium mb-1"
+                            >Ending Inicio (min)</label
+                          >
+                          <input
+                            type="number"
+                            id="manualEndingStartTime"
+                            class="w-full p-2 rounded form-input"
+                            placeholder="Ej: 20.0"
+                            step="0.1"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="md:col-span-2 text-center mt-4"
+                      id="generate-btn-container"
+                    >
+                      <button
+                        type="submit"
+                        class="w-full md:w-auto px-8 py-3 rounded-md font-semibold text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-150 ease-in-out"
+                      >
+                        Generar HTML
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  id="movie-mal-fields"
+                  class="md:col-span-2 p-4 rounded-md border border-orange-500 space-y-4"
+                  style="display: none"
+                >
+                  <label for="malIdMovie" class="font-medium text-white"
+                    >ID de MyAnimeList (para AniSkip en Películas)</label
+                  >
+                  <div id="aniskip-fields-movie">
+                    <div class="flex items-center gap-2">
+                      <input
+                        type="number"
+                        id="malIdMovie"
+                        class="w-full p-2 rounded form-input"
+                        placeholder="Ej: 5114"
+                      />
+                      <a
+                        id="mal-link-movie"
+                        href="https://myanimelist.net/"
+                        target="_blank"
+                        class="p-2 rounded-md bg-orange-600 hover:bg-orange-700 text-white"
+                        aria-label="Abrir en MyAnimeList"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-5 w-5"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"
+                          />
+                          <path
+                            d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">
+                      Para películas, el ID de MyAnimeList se usará
+                      directamente.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Column 2 -->
+              <div class="w-full lg:w-1/2 px-3 space-y-4">
+                <!-- 2. Servidores de Video -->
+                <div>
+                  <h3
+                    class="text-lg font-semibold mb-3 border-b border-gray-700 pb-2 text-white"
+                  >
+                    Servidores de Video
+                  </h3>
+                  <div class="max-h-96 overflow-y-auto pr-2 custom-scroll">
+                    <div
+                      id="language-servers-container"
+                      class="space-y-6"
+                    ></div>
+                  </div>
+                  <div class="flex flex-wrap gap-4 mt-4">
+                    <button
+                      type="button"
+                      id="add-language-server-btn"
+                      class="px-6 py-2 rounded-md text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-150 ease-in-out"
+                    >
+                      + Añadir Idioma
+                    </button>
+                  </div>
+                </div>
+                <!-- 3. Servidores de Descarga -->
+                <div>
+                  <h3
+                    class="text-lg font-semibold mb-3 border-b border-gray-700 pb-2 text-white"
+                  >
+                    Servidores de Descarga
+                  </h3>
+                  <div class="max-h-96 overflow-y-auto pr-2 custom-scroll">
+                    <div
+                      id="download-servers-container"
+                      class="space-y-6"
+                    ></div>
+                  </div>
+                  <button
+                    type="button"
+                    id="add-download-server-btn"
+                    class="mt-4 px-6 py-2 rounded-md text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-150 ease-in-out"
+                  >
+                    + Añadir Idioma de Descarga
+                  </button>
+                </div>
+                <div
+                  class="text-center mt-4"
+                  id="generate-btn-movie-container"
+                  style="display: none"
+                >
+                  <button
+                    type="submit"
+                    class="w-full md:w-auto px-8 py-3 rounded-md font-semibold text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-150 ease-in-out"
+                  >
+                    Generar HTML
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal para HTML Generado -->
+    <div
+      id="generated-html-modal"
+      class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden"
+    >
+      <div class="modal-content">
+        <div class="modal-header flex justify-between items-center">
+          <h3 class="text-xl font-semibold text-white">Código Generado</h3>
+          <button
+            id="close-generated-modal-btn"
+            class="text-gray-400 hover:text-white"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <pre
+            class="p-4 rounded-md bg-gray-900 overflow-auto text-gray-200 border border-gray-700 h-full"
+          ><code id="output-code"></code></pre>
+        </div>
+        <div class="modal-footer">
+          <button
+            id="copy-btn"
+            class="px-6 py-2 rounded-md text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-150 ease-in-out"
+          >
+            Copiar Código
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Cargar HTML -->
+    <div
+      id="load-html-modal"
+      class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden"
+    >
+      <div
+        class="bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-2xl transform transition-all"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-semibold text-white">Cargar HTML Generado</h3>
+          <button
+            id="close-load-modal-btn"
+            class="text-gray-400 hover:text-white"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <label for="html-input" class="block text-sm font-medium mb-1"
+              >Pega tu código HTML aquí:</label
+            >
+            <textarea
+              id="html-input"
+              rows="10"
+              class="w-full p-2 rounded form-input bg-gray-700 text-gray-200 border border-gray-600 focus:border-orange-500 focus:ring focus:ring-orange-500 focus:ring-opacity-50"
+              placeholder="<!-- Pega el HTML generado aquí para cargarlo en el formulario -->"
+            ></textarea>
+          </div>
+          <button
+            type="button"
+            id="load-html-btn"
+            class="w-full px-6 py-2 rounded-md font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-150 ease-in-out"
+          >
+            Cargar HTML en Formulario
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <datalist id="language-codes-list"></datalist>
+  </body>
+</html>
