@@ -1,0 +1,132 @@
+body {
+  background-color: #0f172a; /* Deep dark background */
+  font-family: "Inter", sans-serif; /* Modern, clean font */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  color: #e2e8f0; /* Light grey for text */
+  overflow-x: hidden;
+}
+
+.container {
+  background-color: #1e293b; /* Darker slate for container */
+  padding: 40px; /* Slightly less padding */
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Softer, less deep shadow */
+  text-align: center;
+  border: 1px solid #334155; /* Subtle border */
+  margin-top: 40px; /* Slightly less space from top */
+  width: 100%;
+  max-width: 1000px; /* Wider container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.full-width-button {
+  width: 100%;
+  max-width: 800px; /* Max width for the full-width button */
+  margin-bottom: 30px; /* Space below the full-width button */
+  padding: 25px 40px; /* Generous padding */
+  font-size: 1.6em; /* Slightly larger font */
+  border-radius: 10px;
+  background-color: #f97316; /* Orange background */
+  color: white;
+  border: none;
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.4); /* Softer shadow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700; /* Bolder text */
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.full-width-button i {
+  font-size: 2.5em; /* Larger icon */
+  margin-right: 20px;
+  color: white;
+}
+
+.full-width-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.5);
+  background-color: #ea580c; /* Darker orange on hover */
+}
+
+.full-width-button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(249, 115, 22, 0.3);
+}
+
+.buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  ); /* Slightly larger min width for buttons */
+  gap: 20px; /* Slightly reduced gap for a tighter look */
+  width: 100%;
+  margin-top: 20px; /* Reduced margin-top after full-width button */
+}
+
+.shortcut-button {
+  background-color: #1e293b; /* Dark slate background */
+  color: #e2e8f0; /* Light grey text */
+  border: 1px solid #475569; /* Slate-600 border */
+  padding: 20px 30px; /* Slightly reduced padding */
+  border-radius: 10px; /* More rounded corners */
+  font-size: 1.2em; /* Slightly smaller font size for grid buttons */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* More pronounced but still soft shadow */
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* Slightly reduced letter spacing */
+  display: flex;
+  flex-direction: column; /* Stack icon and text */
+  align-items: center;
+  justify-content: center;
+  height: 140px; /* Taller buttons for a more substantial feel */
+  position: relative;
+  overflow: hidden;
+  font-weight: 600; /* Make text a bit bolder */
+}
+
+.shortcut-button i {
+  font-size: 2.5em; /* Larger icons for stacked layout */
+  margin-right: 0; /* Remove right margin */
+  margin-bottom: 10px; /* Space between icon and text */
+  color: #f97316; /* Orange icon */
+  transition: color 0.3s ease;
+}
+
+.shortcut-button:hover {
+  transform: translateY(-5px); /* More pronounced lift on hover */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Stronger, but still soft shadow on hover */
+  background-color: #2a384d; /* Slightly lighter slate on hover */
+  border-color: #f97316; /* Orange border on hover */
+  color: #f97316; /* Orange text on hover */
+}
+
+.shortcut-button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+#copy-notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2d3748;
+  color: #e2e8f0;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: 0.9em;
+  font-weight: 600;
+}
